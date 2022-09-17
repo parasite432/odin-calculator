@@ -3,6 +3,8 @@
  border: solid;
  padding: 50px;
  margin-bottom: 10px;
+ background-color: white;
+ border-radius: 5px;
     
 }
 
@@ -14,6 +16,8 @@
  height: fit-content;
  border: solid;
  padding: 10px;
+ background-color: maroon;
+ border-radius: 10px;
 
  }
 
@@ -23,7 +27,15 @@ display: grid;
 grid-template-columns: repeat(5,1fr);
 min-width: 400px;
 min-height: 400px;
-gap: 10px
+gap: 10px;
+
+
+}
+
+.btn {
+
+border-radius: 5px;
+border-style: none;
 
 }
 

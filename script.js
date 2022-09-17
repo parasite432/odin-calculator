@@ -1,5 +1,6 @@
-
-
+const numberButton = document.querySelectorAll('.number') 
+let num1 = 0;
+let num2 = 0;
 
 /* Operations */
 function add(num1,num2) {
@@ -7,7 +8,7 @@ function add(num1,num2) {
 }
 
 function subtract(num1,num2) {
-    return num1  - num2;
+    return num1  - num2;number
 }
 
 
@@ -34,3 +35,10 @@ function operate (operation, num1, num2  ) {
     }
 
 }
+
+numberButton.forEach((number) => {
+
+    number.addEventListener('click', () => console.log('clicked ' + number.textContent))
+
+
+} )
