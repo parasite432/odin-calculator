@@ -1,13 +1,12 @@
 const numberButton = document.querySelectorAll('.number');
 const btn = document.querySelectorAll('.btn');
-
 const mainDisplay = document.querySelector('.display');
-
 const operator = document.querySelectorAll('.operation');
 const equalsButton = document.querySelector('.equals')
-
 const deleteButton = document.getElementById('del');
 const clearButton = document.getElementById('clear');
+const ANSButton = document.querySelector('.ANS');
+const x10Button = document.querySelector('.x10');
 
 
 let num1 = null;
@@ -18,7 +17,7 @@ let isOperationKeypressed = false;
 let currentOperation = null;
 let solution = 0;
 let errorCheck = false;
-let arrayOfOperations = new Array();
+let isDecimal = false;
 let previousOperator = null;
 
 /* Operations */
@@ -61,7 +60,7 @@ function clear() {
     currentOperation = null;
     num1 = null;
     num2 = null;
-
+    solution = 0;
 }
 
 function del() {
@@ -69,7 +68,7 @@ function del() {
     let str = mainDisplay.textContent;
     let newStr = str.slice(0, -1)
     mainDisplay.textContent = newStr;
-    num1 = parseInt(newStr)
+    num1 = parseFloat(newStr)
     console.log(mainDisplay.textContent + ' len: ' + mainDisplay.textContent.length);
 
 }
@@ -79,7 +78,7 @@ function operation(operator) {
     let op = operator.id;
   
     if (currentOperation === null) {
-    num1 = parseInt(mainDisplay.textContent);
+    num1 = parseFloat(mainDisplay.textContent);
     
     console.log(num1);
 
@@ -88,7 +87,7 @@ function operation(operator) {
     }
     else {
         
-      num2 = parseInt(mainDisplay.textContent); 
+      num2 = parseFloat(mainDisplay.textContent); 
       
       
       console.log('num1: ' + num1);
@@ -106,8 +105,8 @@ function operation(operator) {
 
     }
     
-   previousOperator = op;
-
+    previousOperator = op;
+    isDecimal = false;
     isOperationKeypressed = true;
 }
 
@@ -115,15 +114,9 @@ function equals () {
 
     
     isEqualPressed = true;
-
-    
-
-    num2 =  parseInt(mainDisplay.textContent);
+    num2 =  parseFloat(mainDisplay.textContent);
 
     if(num1 === null || num2 === null) {return}
-
-
-
     if (currentOperation === '÷') {
 
         if (num2 === 0) 
@@ -141,20 +134,17 @@ function equals () {
     solution = operate(currentOperation,num1,num2);
     console.log(solution + ' df:' +currentOperation);
     mainDisplay.textContent=solution;
-   
+    isDecimal = false;
     currentOperation = null;
     isEqualPressed = false;
 
-
 }
-
-
 
 /*eventListeners*/
 
 clearButton.addEventListener('click', clear);
 deleteButton.addEventListener('click', del);
-
+equalsButton.addEventListener('click',equals);
 
 numberButton.forEach((number) => {
     number.addEventListener('click',
@@ -162,8 +152,8 @@ numberButton.forEach((number) => {
         () => {
             
             let display = ''
-
-
+            if (isDecimal === true && number.textContent === '.') {return}
+            if(number.textContent === '.') {isDecimal = true}
             if (isOperationKeypressed === true) {mainDisplay.textContent = ''; isOperationKeypressed = false}
             if (errorCheck === false ) {
             mainDisplay.textContent = mainDisplay.textContent + number.textContent
@@ -198,4 +188,16 @@ operator.forEach((operator) => {
     })
 })
 
-equalsButton.addEventListener('click',equals)
+
+ANSButton.addEventListener('click', () => {
+
+    mainDisplay.textContent = solution;
+
+});
+
+x10Button.addEventListener('click', () => {
+
+    mainDisplay.textContent = parseFloat(mainDisplay.textContent)*10;
+
+
+})
