@@ -1,46 +1,81 @@
-.display
-{
- border: solid;
- padding: 50px;
- margin-bottom: 10px;
- background-color: white;
- border-radius: 5px;
-    
+.display {
+    border: solid;
+    height: fit-content;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+
+    max-width: 394px;
+    min-height: 35px;
+    font-size: 20px;
+
+
+    align-items: flex-end;
+    justify-content: end;
+    padding: 10px;
+    font-size: 30px;
+
+    word-wrap: break-word;
+    word-break: break-all;
+
+}
+
+#del , #clear {
+
+    background: rgb(80, 80, 255);
+    color: white;
+
 }
 
 
-.main
- {
+.main {
 
- width: fit-content;
- height: fit-content;
- border: solid;
- padding: 10px;
- background-color: maroon;
- border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+    border: solid;
+    padding: 10px;
+    background-color: black;
+    border-radius: 10px;
 
- }
+}
 
 .buttons {
 
-display: grid;
-grid-template-columns: repeat(5,1fr);
-min-width: 400px;
-min-height: 400px;
-gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    min-width: 300px;
+    min-height: 200px;
+    gap: 10px;
 
 
 }
 
 .btn {
 
-border-radius: 5px;
-border-style: none;
+    border-radius: 5px;
+    border-style: none;
+    font-size: 20px;
+    aspect-ratio: 2/1.5;
+
 
 }
 
-.btn:last-child {
 
-grid-column: span 2;
+
+.hover {
+
+    background-color: rgb(169, 169, 169);
+
+
 
 }
+
+.btn,
+.top,
+.bottom {
+
+
+    font-weight: bold;
+}
+

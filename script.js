@@ -1,8 +1,8 @@
 const numberButton = document.querySelectorAll('.number');
 const btn = document.querySelectorAll('.btn');
-const entireDisplay = document.querySelector('.display');
-const mainDisplay = document.querySelector('.bottom');
-const operationDisplay = document.querySelector('.top');
+
+const mainDisplay = document.querySelector('.display');
+
 const operator = document.querySelectorAll('.operation');
 const equalsButton = document.querySelector('.equals')
 
@@ -17,6 +17,8 @@ let isEqualPressed = false;
 let currentOperation = null;
 let solution = 0;
 let errorCheck = false;
+let arrayOfOperations = new Array();
+let previousOperator = null;
 
 /* Operations */
 function add(num1, num2) {
@@ -54,8 +56,6 @@ function operate(operation, num1, num2) {
 
 function clear() {
     mainDisplay.textContent = '';
-    operationText = '';
-    operationDisplay.textContent = '';
     errorCheck = false;
     currentOperation = null;
     num1 = 0;
@@ -76,18 +76,26 @@ function del() {
 function operation(operator) {
 
     let op = operator.id;
-
+    arrayOfOperations.push(op);
+    let arrayLen = arrayOfOperations.length;
+    
     if (currentOperation === null) {
-    operationText = operationText + ' ' + mainDisplay.textContent ;
-    operationDisplay.textContent = operationText + ' ' + op;
     num1 = parseInt(mainDisplay.textContent);
     mainDisplay.textContent = '';
     console.log(num1);
+    
     }
     else {
+        
+      num2 = parseInt(mainDisplay.textContent); 
+      
+      
+      console.log('num1: ' + num1);
+      console.log('num2: ' + num2);
 
-       // operationDisplay.textContent = operationText + ' ' + op;
-        //num2 = parseInt(mainDisplay.textContent);
+      num1 = operate(op, num1,num2);
+
+      
 
 
     }
@@ -104,9 +112,6 @@ function equals () {
         {
             mainDisplay.textContent= 'Math Error!';
             errorCheck = true;
-            operationText = '';
-            operationDisplay.textContent=' Press AC to rest';
-         
             return
         }
 
@@ -118,8 +123,7 @@ function equals () {
     solution = operate(currentOperation,num1,num2);
     console.log(solution + ' df:' +currentOperation);
     mainDisplay.textContent=solution;
-    operationText = '';
-    operationDisplay.textContent='';
+   
     currentOperation = null;
     isEqualPressed = false;
 
@@ -139,8 +143,10 @@ numberButton.forEach((number) => {
 
         () => {
             
+            let display = ''
             if (errorCheck === false) {
             mainDisplay.textContent = mainDisplay.textContent + number.textContent
+
             }
            
             
