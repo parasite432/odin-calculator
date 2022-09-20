@@ -10,8 +10,8 @@ const deleteButton = document.getElementById('del');
 const clearButton = document.getElementById('clear');
 
 
-let num1 = 0;
-let num2 = 0;
+let num1 = null;
+let num2 = null;
 let numberOfCalled = 0;
 let isEqualPressed = false;
 let isOperationKeypressed = false;
@@ -59,8 +59,8 @@ function clear() {
     mainDisplay.textContent = '';
     errorCheck = false;
     currentOperation = null;
-    num1 = 0;
-    num2 = 0;
+    num1 = null;
+    num2 = null;
 
 }
 
@@ -113,8 +113,16 @@ function operation(operator) {
 
 function equals () {
 
+    
     isEqualPressed = true;
+
+    
+
     num2 =  parseInt(mainDisplay.textContent);
+
+    if(num1 === null || num2 === null) {return}
+
+
 
     if (currentOperation === '÷') {
 
