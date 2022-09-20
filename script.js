@@ -1,3 +1,9 @@
+/*
+1) add effects to enable corresponding input number to light up
+2) 
+*/
+
+
 const numberButton = document.querySelectorAll('.number');
 const btn = document.querySelectorAll('.btn');
 const mainDisplay = document.querySelector('.display');
@@ -75,8 +81,8 @@ function del() {
 
 function operation(operator) {
 
-    let op = operator.id;
-  
+    let op = operator;
+    //if (isEqualPressed) {num1 = solution}
     if (currentOperation === null) {
     num1 = parseFloat(mainDisplay.textContent);
     
@@ -108,6 +114,34 @@ function operation(operator) {
     previousOperator = op;
     isDecimal = false;
     isOperationKeypressed = true;
+}
+
+function displayNumber(number) {
+
+    
+    if (isDecimal === true && number=== '.') {return}
+    if(number.textContent === '.') {isDecimal = true}
+    if (isOperationKeypressed === true) {mainDisplay.textContent = ''; isOperationKeypressed = false}
+    if (errorCheck === false ) {
+    mainDisplay.textContent = mainDisplay.textContent + number
+
+    }
+
+
+
+}
+
+function keyboardInput(event) {
+    if ((event.key >= 0 && event.key <= 9) ) displayNumber(event.key)
+    if (event.key === '=' || event.key === 'Enter') equals();
+    if (event.key === 'Backspace') del()
+    if (event.key === 'Escape') clear()
+    if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/'){
+    operation(event.key);
+    console.log(event.key)
+    currentOperation = event.key; }
+
+
 }
 
 function equals () {
@@ -146,25 +180,11 @@ clearButton.addEventListener('click', clear);
 deleteButton.addEventListener('click', del);
 equalsButton.addEventListener('click',equals);
 
+
 numberButton.forEach((number) => {
-    number.addEventListener('click',
-
-        () => {
-            
-            let display = ''
-            if (isDecimal === true && number.textContent === '.') {return}
-            if(number.textContent === '.') {isDecimal = true}
-            if (isOperationKeypressed === true) {mainDisplay.textContent = ''; isOperationKeypressed = false}
-            if (errorCheck === false ) {
-            mainDisplay.textContent = mainDisplay.textContent + number.textContent
-
-            }
-
-
-           
-            
-        })
+    number.addEventListener('click', () => {displayNumber(number.textContent)})
 })
+
 
 btn.forEach((btn) => {
 
@@ -180,8 +200,8 @@ btn.forEach((btn) => {
 operator.forEach((operator) => {
     operator.addEventListener('click', () => {
     
-        if (isEqualPressed) {num1 = solution}
-        operation(operator);
+        
+        operation(operator.id);
         currentOperation = operator.id;
         console.log(currentOperation);
 
@@ -200,4 +220,14 @@ x10Button.addEventListener('click', () => {
     mainDisplay.textContent = parseFloat(mainDisplay.textContent)*10;
 
 
-})
+});
+
+
+
+document.addEventListener('keydown', (event) => {keyboardInput(event); console.log(event)
+
+ 
+
+
+});
+
