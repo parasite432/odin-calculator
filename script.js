@@ -9,11 +9,12 @@ const equalsButton = document.querySelector('.equals')
 const deleteButton = document.getElementById('del');
 const clearButton = document.getElementById('clear');
 
-let operationText = '';
+
 let num1 = 0;
 let num2 = 0;
 let numberOfCalled = 0;
 let isEqualPressed = false;
+let isOperationKeypressed = false;
 let currentOperation = null;
 let solution = 0;
 let errorCheck = false;
@@ -76,14 +77,14 @@ function del() {
 function operation(operator) {
 
     let op = operator.id;
-    arrayOfOperations.push(op);
-    let arrayLen = arrayOfOperations.length;
-    
+  
     if (currentOperation === null) {
     num1 = parseInt(mainDisplay.textContent);
-    mainDisplay.textContent = '';
-    console.log(num1);
     
+    console.log(num1);
+
+    previousOperator = op;
+    console.log( 'previousOperator: ' + previousOperator);
     }
     else {
         
@@ -93,12 +94,21 @@ function operation(operator) {
       console.log('num1: ' + num1);
       console.log('num2: ' + num2);
 
-      num1 = operate(op, num1,num2);
+      solution = operate(previousOperator, num1,num2);
+      console.log('display: ' + solution + 'previousOperator: ' + previousOperator);
+      mainDisplay.textContent = solution;
+      num1 = solution;
+
+    
 
       
 
 
     }
+    
+   previousOperator = op;
+
+    isOperationKeypressed = true;
 }
 
 function equals () {
@@ -144,10 +154,15 @@ numberButton.forEach((number) => {
         () => {
             
             let display = ''
-            if (errorCheck === false) {
+
+
+            if (isOperationKeypressed === true) {mainDisplay.textContent = ''; isOperationKeypressed = false}
+            if (errorCheck === false ) {
             mainDisplay.textContent = mainDisplay.textContent + number.textContent
 
             }
+
+
            
             
         })
@@ -167,7 +182,7 @@ btn.forEach((btn) => {
 operator.forEach((operator) => {
     operator.addEventListener('click', () => {
     
-        //if (isEqualPressed) {num1 = solution}
+        if (isEqualPressed) {num1 = solution}
         operation(operator);
         currentOperation = operator.id;
         console.log(currentOperation);
